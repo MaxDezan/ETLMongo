@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dashboard de resultados da pesquisa de satisfação — visualize dados, categorias e métricas em tempo real.">
+    <title>Painel de Pesquisa — Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app">
+        <!-- Header -->
+        <header class="header" id="dashboard-header">
+            <div class="header__inner">
+                <div class="header__brand">
+                    <div class="header__logo" aria-hidden="true">
+                        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                            <rect width="28" height="28" rx="8" fill="url(#logo-grad)"/>
+                            <path d="M8 14.5L12 18.5L20 10.5" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <defs><linearGradient id="logo-grad" x1="0" y1="0" x2="28" y2="28"><stop stop-color="#6366f1"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="header__title">Painel da Pesquisa</h1>
+                        <p class="header__subtitle">Resultados consolidados</p>
+                    </div>
+                </div>
+                <div class="header__status" id="connection-status">
+                    <span class="status-dot status-dot--loading"></span>
+                    <span class="status-text">Carregando…</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main">
+            <!-- KPI Cards Row -->
+            <section class="kpi-row" id="kpi-section" aria-label="Indicadores principais">
+                <div class="kpi-card kpi-card--primary" id="kpi-total">
+                    <div class="kpi-card__icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <div class="kpi-card__content">
+                        <span class="kpi-card__value" id="kpi-total-value">—</span>
+                        <span class="kpi-card__label">Participantes</span>
+                    </div>
+                </div>
+                <div class="kpi-card kpi-card--accent" id="kpi-categories">
+                    <div class="kpi-card__icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 7h16M4 12h16M4 17h10"/>
+                        </svg>
+                    </div>
+                    <div class="kpi-card__content">
+                        <span class="kpi-card__value" id="kpi-categories-value">—</span>
+                        <span class="kpi-card__label">Categorias</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Chart + Badges Grid -->
+            <section class="dashboard-grid" id="dashboard-grid">
+                <!-- Pie Chart Card -->
+                <div class="card card--chart" id="chart-card">
+                    <div class="card__header">
+                        <h2 class="card__title">Indicadores de Satisfação</h2>
+                        <p class="card__description">Índice geral e por categoria de equipamentos</p>
+                    </div>
+                    <div class="card__body">
+                        <div class="rings-row">
+                            <!-- Ring: Geral -->
+                            <div class="ring-item">
+                                <div class="progress-ring-wrapper" id="progress-ring-wrapper">
+                                    <svg class="progress-ring" viewBox="0 0 200 200" aria-label="Indicador circular de satisfação geral">
+                                        <defs>
+                                            <linearGradient id="ring-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                <stop offset="0%"   stop-color="hsl(245, 70%, 65%)" />
+                                                <stop offset="100%" stop-color="hsl(280, 65%, 60%)" />
+                                            </linearGradient>
+                                        </defs>
+                                        <circle class="progress-ring__track" cx="100" cy="100" r="85" />
+                                        <circle class="progress-ring__fill" id="progress-ring-fill" cx="100" cy="100" r="85" />
+                                    </svg>
+                                    <div class="progress-ring__center">
+                                        <span class="progress-ring__value" id="progress-ring-value">—</span>
+                                        <span class="progress-ring__label">geral</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Ring: Equipamentos -->
+                            <div class="ring-item">
+                                <div class="progress-ring-wrapper" id="progress-ring-equip-wrapper">
+                                    <svg class="progress-ring" viewBox="0 0 200 200" aria-label="Indicador circular de satisfação — equipamentos">
+                                        <defs>
+                                            <linearGradient id="ring-gradient-equip" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                <stop offset="0%"   stop-color="hsl(170, 65%, 48%)" />
+                                                <stop offset="100%" stop-color="hsl(200, 75%, 55%)" />
+                                            </linearGradient>
+                                        </defs>
+                                        <circle class="progress-ring__track" cx="100" cy="100" r="85" />
+                                        <circle class="progress-ring__fill progress-ring__fill--equip" id="progress-ring-equip-fill" cx="100" cy="100" r="85" />
+                                    </svg>
+                                    <div class="progress-ring__center">
+                                        <span class="progress-ring__value progress-ring__value--equip" id="progress-ring-equip-value">—</span>
+                                        <span class="progress-ring__label">equipamentos</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Badges / Categories Card -->
+                <div class="card card--badges" id="badges-card">
+                    <div class="card__header">
+                        <h2 class="card__title">Principais Categorias</h2>
+                        <p class="card__description">Temas mais mencionados na pesquisa</p>
+                    </div>
+                    <div class="card__body">
+                        <div class="badges-list" id="badges-list">
+                            <!-- Badges will be injected by JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Detailed Breakdown -->
+            <section class="card card--table" id="breakdown-card">
+                <div class="card__header">
+                    <h2 class="card__title">Detalhamento por Categoria</h2>
+                    <p class="card__description">Quantidade e percentual de menções por tema</p>
+                </div>
+                <div class="card__body">
+                    <div class="table-wrapper" id="table-wrapper">
+                        <table class="data-table" id="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Categoria</th>
+                                    <th>Menções</th>
+                                    <th>Percentual</th>
+                                    <th>Indicador</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-body">
+                                <!-- Rows injected by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer" id="dashboard-footer">
+            <p>Pesquisa de Satisfação &middot; <span id="footer-year">2026</span></p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
