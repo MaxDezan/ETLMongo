@@ -1,6 +1,6 @@
 const { MongoClient } = require('mongodb');
 
-const URI = process.env.MONGO_URI;
+const URI = process.env.MONGO_URI || 'mongodb://maxDezan:mongo590@ac-tualy2x-shard-00-00.w3luxc9.mongodb.net:27017,ac-tualy2x-shard-00-01.w3luxc9.mongodb.net:27017,ac-tualy2x-shard-00-02.w3luxc9.mongodb.net:27017/?ssl=true&replicaSet=atlas-6k2qfd-shard-0&authSource=admin&appName=Cluster0';
 const DB_NAME = process.env.MONGO_DB || 'pesquisa';
 
 let clientPromise;
